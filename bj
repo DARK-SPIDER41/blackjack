@@ -1,0 +1,69 @@
+from art import logo
+from replit import clear
+import random
+
+def choose_card():
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10]
+    i=random.randint(0,10)
+    return cards[i]
+
+def total(list):
+    sum=0
+    for i in list:
+        sum+=i
+    return sum
+    
+   
+
+print("Welcome to Blackjack!")
+choice=input("do you want to play black jack y/n :")
+while choice=="y":
+    clear()
+    print(logo)
+    flag=0
+    flag1=0
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10]
+    dealer=[]
+    player=[]
+    dealer.append(choose_card())
+    player.append(choose_card())
+    dealer.append(choose_card())
+    player.append(choose_card())
+
+    print(f"dealer's first card is {dealer[0]}")
+    print(f"your cards are {player}")
+    print(f"and your total is {total(player)}")
+    choice_card=input("do you want to take another card y/n :")
+    while choice_card=="y":
+        player.append(choose_card())
+        print(f"your cards are {player}")
+        print(f"and your total is {total(player)}")
+        if(total(player)>21):
+            print("You went over. You lose 😤")
+            flag=1
+            break
+        else:
+            choice_card=input("do you want to take another card y/n :")
+
+    if(flag==1):
+        choice=input("do you want to play black jack y/n :")
+    if(flag==0): 
+        print(f"dealer's cards are {dealer} and dealer's total is {total(dealer)}")
+        
+        while(total(dealer)<17):
+            dealer.append(choose_card())
+            flag1=1
+        if(flag1==1):# so that final hand does not print in correct case
+            print(f"dealer final hand is {dealer} , and total is {total(dealer)}")
+    
+        if(total(dealer)>21):
+            print("Opponent went over. You win 😁")
+        else:
+            if(total(player)>total(dealer)):
+                print("You win 😃")
+            elif(total(player)==total(dealer)):
+                print("Draw 🙃")
+            else:
+                print("You lose 😤")
+        choice=input("do you want to play black jack y/n :")
+    
